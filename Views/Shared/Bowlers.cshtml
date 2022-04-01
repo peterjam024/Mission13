@@ -4,28 +4,38 @@
 
 <div class="card card-outline-primary m-1 p-1">
     <div class="bg-light p-1">
-        <h4>@Model.ProjectName</h4>
+        <h4>@Model.BowlerFirstName</h4>
         <span class="badge bg-gradient" style="float:right">
-            Impact: @Model.ProjectImpact
+            Middle Initial: @Model.BowlerMiddleInit
+            Last Name: @Model.BowlerLastName
 
         </span>
     </div>
-    
+
 
     <ul>
-        <li>Project type: @Model.ProjectType</li>
-        <li>Regional Program: @Model.ProjectRegionalProgram</li>
-        <li>Project Phase: @Model.ProjectPhase</li>
-        <li>Project Status: @Model.ProjectFunctionalityStatus</li>
+        <li>Project type: @Model.BowlerPhoneNumber</li>
+        <li>Regional Program: @Model.BowlerCity</li>
+        <li>Project Phase: @Model.BowlerState</li>
+        <li>Project Status: @Model.BowlerZip</li>
     </ul>
 
-    <form method="post" asp-page="/Donate">
+    <form method="post" asp-page="/Edit">
 
-        <input type="hidden" asp-for="@Model.ProjectId" />
+        <input type="hidden" asp-for="@Model.BowlerID" />
         <input type="hidden" name="returnURL" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
 
         <span class="card-text">
-            <button type="submit" class="btn btn-success btn-sm float-end">Donate</button>
+            <button type="submit" class="btn btn-success btn-sm float-end">Edit</button>
+        </span>
+    </form>
+    <form method="post" asp-page="/Delete">
+
+        <input type="hidden" asp-for="@Model.BowlerID" />
+        <input type="hidden" name="returnURL" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-danger btn-sm float-end">Delete</button>
         </span>
     </form>
 
