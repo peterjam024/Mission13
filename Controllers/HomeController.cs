@@ -31,16 +31,16 @@ namespace WaterProject.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Teams = _repo.Teams.ToList();
-            var person = _repo.Bowlers.Single(x => x.BowlerID == id);
+            ViewBag.Teams = repo.Teams.ToList();
+            var person = repo.Bowlers.Single(x => x.BowlerID == id);
             return View(person);
         }
 
         [HttpPost]
         public IActionResult Edit(Bowler b)
         {
-            ViewBag.Teams = _repo.Teams.ToList();
-            _repo.SaveBowler(b);
+            ViewBag.Teams = repo.Teams.ToList();
+            repo.SaveBowler(b);
             return RedirectToAction("TeamView", "Team", null);
         }
 
@@ -49,14 +49,14 @@ namespace WaterProject.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var person = _repo.Bowlers.Single(x => x.BowlerID == id);
+            var person = repo.Bowlers.Single(x => x.BowlerID == id);
             return View(person);
         }
 
         [HttpPost]
         public IActionResult Delete(Bowler bowler)
         {
-            _repo.DeleteBowler(bowler);
+            repo.DeleteBowler(bowler);
             return RedirectToAction("TeamView", "Team", null);
 
         }
