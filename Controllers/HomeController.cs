@@ -10,7 +10,8 @@ namespace WaterProject.Controllers
 {
     public class HomeController : Controller
     {
-        private IBowlerRepository repo;
+        private IBowlerRepository repo { get; set; }
+        private BowlersDBContext _context { get; set; }
         public HomeController(IBowlerRepository temp)
         {
             repo = temp;
@@ -26,6 +27,38 @@ namespace WaterProject.Controllers
             };
 
             return View(x);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Teams = _repo.Teams.ToList();
+            var person = _repo.Bowlers.Single(x => x.BowlerID == id);
+            return View(person);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Bowler b)
+        {
+            ViewBag.Teams = _repo.Teams.ToList();
+            _repo.SaveBowler(b);
+            return RedirectToAction("TeamView", "Team", null);
+        }
+
+        // ----- DELETE -------
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var person = _repo.Bowlers.Single(x => x.BowlerID == id);
+            return View(person);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Bowler bowler)
+        {
+            _repo.DeleteBowler(bowler);
+            return RedirectToAction("TeamView", "Team", null);
+
         }
     }
 }
